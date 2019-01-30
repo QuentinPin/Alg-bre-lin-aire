@@ -27,10 +27,10 @@ public class main {
 		}
 
 		System.out.println(
-				"1 - Je choisie sur quel ligne/colonne calculer \n2 - Automatique\n3 - Automatique Avec insertion zero");
+				"1 - Je choisie sur quel ligne/colonne calculer \n2 - Automatique\n3 - Automatique Avec insertion zero\n4 - Calcule déterminant exposant m");
 		int choixCalcul = sc.nextInt();
 
-		while (choixCalcul != 1 && choixCalcul != 2 && choixCalcul != 3) {
+		while (choixCalcul != 1 && choixCalcul != 2 && choixCalcul != 3 && choixCalcul !=4) {
 			System.out.println("Erreur Choisir entre 1 et 2 et 3");
 			choixCalcul = sc.nextInt();
 		}
@@ -67,6 +67,15 @@ public class main {
 			System.out.println("Le déterminant est : " + calculDeterminantAutomatique(matrice));
 		} else if (choixCalcul == 3) {
 			System.out.println("Le déterminant est : " + calculDeterminantAvecInsertionZero(matrice));
+		} else if (choixCalcul == 4) {
+			
+			System.out.println("Choisir la puissance");
+			int choixM = sc.nextInt();
+			while (choixM < 1) {
+				System.out.println("Erreur choisir un nombre suppérieur ou égale a 1");
+				choixM = sc.nextInt();
+			}
+			calculerDeterminantExposantN(choixM, matrice);
 		}
 		// float[][] matrice = { { 2, 2, -4 }, { 2, 1, -3 }, { 1, 0, 0} };
 
@@ -120,7 +129,7 @@ public class main {
 	public static float calculDeterminantAutomatique(float[][] matrice) {
 		int cptZero = 0;
 		int maxZero = 0;
-		String choix = "";
+		String choix = "ligne";
 		int index = 0;
 		for (int i = 0; i < matrice.length; i++) {
 			for (int y = 0; y < matrice.length; y++) {
@@ -163,7 +172,7 @@ public class main {
 	public static float calculDeterminantAvecInsertionZero(float[][] matrice) {
 		int cptZero = 0;
 		int maxZero = 0;
-		String choix = "";
+		String choix = "ligne";
 		int index = 0;
 		for (int i = 0; i < matrice.length; i++) {
 			for (int y = 0; y < matrice.length; y++) {
@@ -215,11 +224,58 @@ public class main {
 					}
 				}
 			}
+			afficheMatrice(matrice);
 			return calculerDeterminantParLigne(index, matrice);
 		} else {
-
+			if (maxZero == matrice.length - 1) {
+				calculerDeterminantParColonne(index, matrice);
+			}
+			nbNonzero = matrice.length - maxZero;
+			int indexNonZero = 0;
+			for (int i = 0; i < matrice.length; i++) {
+				if (matrice[i][index] != 0) {
+					indexNonZero = i;
+					break;
+				}
+			}
+			for (int ligne = 0; ligne < matrice.length; ligne++) {
+				if (matrice[ligne][index] != 0 && ligne != indexNonZero) {
+					float x = matrice[ligne][index] / matrice[indexNonZero][index];
+					for (int c = 0; c < matrice.length; c++) {
+						matrice[ligne][c] -= x * matrice[indexNonZero][c];
+					}
+				}
+			}
+			afficheMatrice(matrice);
+			return calculerDeterminantParColonne(index, matrice);
 		}
-		return 0;
+	}
+	
+	public static void calculerDeterminantExposantN(int m, float[][] matrice) {
+		float[][] matriceExposantN = new float[matrice.length][matrice.length];
+		float[][] tempo = new float[matrice.length][matrice.length];
+		for (int i = 0; i < matrice.length; i++) {
+			for (int j = 0; j < matrice.length; j++) {
+				tempo[i][j] = matrice[i][j];
+			}
+		}
+		for (int exposant = 1; exposant < m; exposant++) {
+			for (int i = 0; i < matrice.length; i++) {
+				for (int j = 0; j < matrice.length; j++) {
+					float resultatMultiplicationUnPoint = 0;
+					for (int k = 0; k < matriceExposantN.length; k++) {
+						resultatMultiplicationUnPoint += tempo[i][k] * matrice[k][j];
+					}
+					matriceExposantN[i][j] = resultatMultiplicationUnPoint;
+				}
+			}
+			for (int i = 0; i < matrice.length; i++) {
+				for (int j = 0; j < matrice.length; j++) {
+					tempo[i][j] = matriceExposantN[i][j];
+				}
+			}
+		}
+		System.out.println("det(A^m) = " + calculDeterminantAvecInsertionZero(matriceExposantN) + " et (det(A))^m = " + Math.pow(calculDeterminantAvecInsertionZero(matrice), m));
 	}
 
 	public static void afficheMatrice(float[][] matrice) {
@@ -229,5 +285,6 @@ public class main {
 			}
 			System.out.println();
 		}
+		System.out.println("\n");
 	}
 }

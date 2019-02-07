@@ -10,7 +10,7 @@
 		int ligne;
 		int colonne;
 
-		// Cr�ation de la matrice
+		// Création de la matrice
 		for (int l = 0; l < nb; l++) {
 			for (int c = 0; c < nb; c++) {
 				ligne = l + 1;
@@ -48,7 +48,7 @@
 					System.out.println("Erreur choisir un nombre entre 1 et " + matrice.length);
 					choixL = sc.nextInt();
 				}
-				System.out.println("Le d�terminant est : " + calculerDeterminantParLigne(choixL, matrice));
+				System.out.println("Le déterminant est : " + calculerDeterminantParLigne(choixL, matrice));
 			} else if (choixCOuL == 1) {
 				System.out.println("Choisir le numero de la colonne");
 				int choixC = sc.nextInt() - 1;
@@ -56,19 +56,19 @@
 					System.out.println("Erreur choisir un nombre entre 1 et " + matrice.length);
 					choixC = sc.nextInt();
 				}
-				System.out.println("Le d�terminant est : " + calculerDeterminantParLigne(choixC, matrice));
+				System.out.println("Le déterminant est : " + calculerDeterminantParLigne(choixC, matrice));
 			}
 
 		} else if (choixCalcul == 2) { // Automatique
-			System.out.println("Le d�terminant est : " + calculDeterminantAutomatique(matrice));
+			System.out.println("Le déterminant est : " + calculDeterminantAutomatique(matrice));
 		} else if (choixCalcul == 3) {
-			System.out.println("Le d�terminant est : " + calculDeterminantAvecInsertionZero(matrice));
+			System.out.println("Le déterminant est : " + calculDeterminantAvecInsertionZero(matrice));
 		} else if (choixCalcul == 4) {
 
 			System.out.println("Choisir la puissance");
 			int choixM = sc.nextInt();
 			while (choixM < 1) {
-				System.out.println("Erreur choisir un nombre supp�rieur ou �gale a 1");
+				System.out.println("Erreur choisir un nombre suppérieur ou égale a 1");
 				choixM = sc.nextInt();
 			}
 			calculerDeterminantExposantN(choixM, matrice);

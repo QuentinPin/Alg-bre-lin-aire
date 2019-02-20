@@ -1,5 +1,4 @@
 
-
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez saisir le n :");
 		int nb = sc.nextInt();
@@ -23,11 +22,12 @@
 		}
 
 		System.out.println(
-				"1 - Je choisie sur quel ligne/colonne calculer \n2 - Automatique\n3 - Automatique Avec insertion zero\n4 - Calcule déterminant exposant m\n5 - Inverse\n6 - Cramer");
+				"1 - Je choisie sur quel ligne/colonne calculer \n2 - Automatique\n3 - Automatique Avec insertion zero\n4 - Calcule déterminant exposant m\n5 - Inverse\n6 - Cramer \n7 - Vandermonde");
 		int choixCalcul = sc.nextInt();
 
-		while (choixCalcul != 1 && choixCalcul != 2 && choixCalcul != 3 && choixCalcul != 4 && choixCalcul != 5 && choixCalcul!= 6) {
-			System.out.println("Erreur Choisir entre 1 et 2 et 3 et 4 et 5 et 6");
+		while (choixCalcul != 1 && choixCalcul != 2 && choixCalcul != 3 && choixCalcul != 4 && choixCalcul != 5
+				&& choixCalcul != 6 && choixCalcul != 7) {
+			System.out.println("Erreur Choisir entre 1 et 2 et 3 et 4 et 5 et 6 et 7");
 			choixCalcul = sc.nextInt();
 		}
 
@@ -74,15 +74,15 @@
 			calculerDeterminantExposantN(choixM, matrice);
 		} else if (choixCalcul == 5) {
 			calculerMatriceInverse(matrice);
-		} else if (choixCalcul == 6){
+		} else if (choixCalcul == 6) {
 			float b[] = new float[nb];
 			for (int i = 0; i < b.length; i++) {
-				System.out.println("Choisir la valeur numéro "+ (i+1) +" de B");
+				System.out.println("Choisir la valeur numéro " + (i + 1) + " de B");
 				float choixB = sc.nextFloat();
 				b[i] = choixB;
 			}
-			// appelle fonction Cramer
-		}
-		// float[][] matrice = { { 2, 2, -4 }, { 2, 1, -3 }, { 1, 0, 0} };
+			System.out.println(calculCramer(matrice, b));
+		} else if (choixCalcul == 7) {
 
+		}
 	

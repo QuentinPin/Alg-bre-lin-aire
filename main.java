@@ -3,90 +3,96 @@ package algebreLineaire;
 import java.util.Scanner;
 
 public class main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Veuillez saisir le n (saisir 0 pour faire vandermond) :");
+		int nb = sc.nextInt();
 
-	public static void main(String[] args) {Scanner sc = new Scanner(System.in);
-	System.out.println("Veuillez saisir le n :");
-	int nb = sc.nextInt();
+		// CHOIX MATRICE
+		float[][] matrice = new float[nb][nb];
 
-	// CHOIX MATRICE
-	float[][] matrice = new float[nb][nb];
+		int ligne;
+		int colonne;
 
-	int ligne;
-	int colonne;
+		if (nb != 0) {
+			// Création de la matrice
+			for (int l = 0; l < nb; l++) {
+				for (int c = 0; c < nb; c++) {
+					ligne = l + 1;
+					colonne = c + 1;
+					System.out.println("Veuillez saisir un la valeur en a ligne : " + ligne + " colonne : " + colonne);
+					float nombre = sc.nextFloat();
+					matrice[l][c] = nombre;
 
-	// Création de la matrice
-	for (int l = 0; l < nb; l++) {
-		for (int c = 0; c < nb; c++) {
-			ligne = l + 1;
-			colonne = c + 1;
-			System.out.println("Veuillez saisir un la valeur en a ligne : " + ligne + " colonne : " + colonne);
-			float nombre = sc.nextFloat();
-			matrice[l][c] = nombre;
-
-		}
-	}
-
-	System.out.println(
-			"1 - Je choisie sur quel ligne/colonne calculer \n2 - Automatique\n3 - Automatique Avec insertion zero\n4 - Calcule déterminant exposant m\n5 - Inverse\n6 - Cramer");
-	int choixCalcul = sc.nextInt();
-
-	while (choixCalcul != 1 && choixCalcul != 2 && choixCalcul != 3 && choixCalcul != 4 && choixCalcul != 5 && choixCalcul!= 6) {
-		System.out.println("Erreur Choisir entre 1 et 2 et 3 et 4 et 5 et 6");
-		choixCalcul = sc.nextInt();
-	}
-
-	if (choixCalcul == 1) {
-		// CHOIX COLONNE OU LIGNE
-		System.out.println("Taper \"1\" pour le le calcul en colonne ou \"2\" pour le calcule en ligne");
-		int choixCOuL = sc.nextInt();
-
-		while (choixCOuL != 1 && choixCOuL != 2) {
-			System.out.println("Erreur Choisir entre c et l");
-			choixCOuL = sc.nextInt();
-		}
-
-		if (choixCOuL == 2) {
-			System.out.println("Choisir le numero de la ligne");
-			int choixL = sc.nextInt() - 1;
-			while (choixL < 1 && choixL > matrice.length) {
-				System.out.println("Erreur choisir un nombre entre 1 et " + matrice.length);
-				choixL = sc.nextInt();
+				}
 			}
-			System.out.println("Le déterminant est : " + calculerDeterminantParLigne(choixL, matrice));
-		} else if (choixCOuL == 1) {
-			System.out.println("Choisir le numero de la colonne");
-			int choixC = sc.nextInt() - 1;
-			while (choixC < 1 && choixC > matrice.length) {
-				System.out.println("Erreur choisir un nombre entre 1 et " + matrice.length);
-				choixC = sc.nextInt();
+		}
+
+		System.out.println(
+				"1 - Je choisie sur quel ligne/colonne calculer \n2 - Automatique\n3 - Automatique Avec insertion zero\n4 - Calcule déterminant exposant m\n5 - Inverse\n6 - Cramer \n7 - Vandermonde");
+		int choixCalcul = sc.nextInt();
+
+		while (choixCalcul != 1 && choixCalcul != 2 && choixCalcul != 3 && choixCalcul != 4 && choixCalcul != 5
+				&& choixCalcul != 6 && choixCalcul != 7) {
+			System.out.println("Erreur Choisir entre 1 et 2 et 3 et 4 et 5 et 6 et 7");
+			choixCalcul = sc.nextInt();
+		}
+
+		if (choixCalcul == 1) {
+			// CHOIX COLONNE OU LIGNE
+			System.out.println("Taper \"1\" pour le le calcul en colonne ou \"2\" pour le calcule en ligne");
+			int choixCOuL = sc.nextInt();
+
+			while (choixCOuL != 1 && choixCOuL != 2) {
+				System.out.println("Erreur Choisir entre c et l");
+				choixCOuL = sc.nextInt();
 			}
-			System.out.println("Le déterminant est : " + calculerDeterminantParLigne(choixC, matrice));
-		}
 
-	} else if (choixCalcul == 2) { // Automatique
-		System.out.println("Le déterminant est : " + calculDeterminantAutomatique(matrice));
-	} else if (choixCalcul == 3) {
-		System.out.println("Le déterminant est : " + calculDeterminantAvecInsertionZero(matrice));
-	} else if (choixCalcul == 4) {
+			if (choixCOuL == 2) {
+				System.out.println("Choisir le numero de la ligne");
+				int choixL = sc.nextInt() - 1;
+				while (choixL < 1 && choixL > matrice.length) {
+					System.out.println("Erreur choisir un nombre entre 1 et " + matrice.length);
+					choixL = sc.nextInt();
+				}
+				System.out.println("Le déterminant est : " + calculerDeterminantParLigne(choixL, matrice));
+			} else if (choixCOuL == 1) {
+				System.out.println("Choisir le numero de la colonne");
+				int choixC = sc.nextInt() - 1;
+				while (choixC < 1 && choixC > matrice.length) {
+					System.out.println("Erreur choisir un nombre entre 1 et " + matrice.length);
+					choixC = sc.nextInt();
+				}
+				System.out.println("Le déterminant est : " + calculerDeterminantParLigne(choixC, matrice));
+			}
 
-		System.out.println("Choisir la puissance");
-		int choixM = sc.nextInt();
-		while (choixM < 1) {
-			System.out.println("Erreur choisir un nombre suppérieur ou égale a 1");
-			choixM = sc.nextInt();
+		} else if (choixCalcul == 2) { // Automatique
+			System.out.println("Le déterminant est : " + calculDeterminantAutomatique(matrice));
+		} else if (choixCalcul == 3) {
+			System.out.println("Le déterminant est : " + calculDeterminantAvecInsertionZero(matrice));
+		} else if (choixCalcul == 4) {
+
+			System.out.println("Choisir la puissance");
+			int choixM = sc.nextInt();
+			while (choixM < 1) {
+				System.out.println("Erreur choisir un nombre suppérieur ou égale a 1");
+				choixM = sc.nextInt();
+			}
+			calculerDeterminantExposantN(choixM, matrice);
+		} else if (choixCalcul == 5) {
+			calculerMatriceInverse(matrice);
+		} else if (choixCalcul == 6) {
+			float b[] = new float[nb];
+			for (int i = 0; i < b.length; i++) {
+				System.out.println("Choisir la valeur numéro " + (i + 1) + " de B");
+				float choixB = sc.nextFloat();
+				b[i] = choixB;
+			}
+			System.out.println(calculCramer(matrice, b));
+		} else if (choixCalcul == 7) {
+			System.out.println(
+					"Le déterminant calculer grace a Vondermond est de = " + calculDeterminantVonDerMond());
 		}
-		calculerDeterminantExposantN(choixM, matrice);
-	} else if (choixCalcul == 5) {
-		calculerMatriceInverse(matrice);
-	} else if (choixCalcul == 6){
-		float b[] = new float[nb];
-		for (int i = 0; i < b.length; i++) {
-			System.out.println("Choisir la valeur numéro "+ (i+1) +" de B");
-			float choixB = sc.nextFloat();
-			b[i] = choixB;
-		}
-		System.out.println(calculCramer(matrice, b));
-	}
 	}
 
 	public static float calculerDeterminantParLigne(int ligne, float[][] matrice) {
@@ -167,7 +173,7 @@ public class main {
 			}
 			cptZero = 0;
 		}
-		//System.out.println("Automatique sur la " + choix + " num�ro " + (index + 1));
+		// System.out.println("Automatique sur la " + choix + " num�ro " + (index + 1));
 		if (choix.equals("ligne")) {
 			return calculerDeterminantParLigne(index, matrice);
 		}
@@ -258,7 +264,7 @@ public class main {
 			return calculerDeterminantParColonne(index, matrice);
 		}
 	}
-	
+
 	public static void calculerDeterminantExposantN(int m, float[][] matrice) {
 		float[][] matriceExposantN = new float[matrice.length][matrice.length];
 		float[][] tempo = new float[matrice.length][matrice.length];
@@ -283,7 +289,8 @@ public class main {
 				}
 			}
 		}
-		System.out.println("det(A^m) = " + calculDeterminantAvecInsertionZero(matriceExposantN) + " et (det(A))^m = " + Math.pow(calculDeterminantAvecInsertionZero(matrice), m));
+		System.out.println("det(A^m) = " + calculDeterminantAvecInsertionZero(matriceExposantN) + " et (det(A))^m = "
+				+ Math.pow(calculDeterminantAvecInsertionZero(matrice), m));
 	}
 
 	public static void afficheMatrice(float[][] matrice) {
@@ -295,78 +302,97 @@ public class main {
 		}
 		System.out.println("\n");
 	}
-	
-	public static float calculerDeterminantDeVonDerMnde(int n, float [][] matrice){
-		
+
+	public static float calculerDeterminantDeVonDerMnde(int n, float[][] matrice) {
+
 		return 0.0f;
 	}
-	
-	public static float[][] calculerMatriceInverse(float[][] matrice){
+
+	public static float[][] calculerMatriceInverse(float[][] matrice) {
 		float[][] matriceInverse = new float[matrice.length][matrice.length];
 		float determiant = calculDeterminantAutomatique(matrice);
 		if (determiant == 0) {
 			System.out.println("La matrice donne un déterminant égale a 0 donc elle n'est pas inversible.");
-		}else {
-			System.out.print ("A^(-1) = 1/" + determiant + " * \n"); 
+		} else {
+			System.out.print("A^(-1) = 1/" + determiant + " * \n");
 			afficheMatrice(caclulTransposeeComatrice(matrice));
 		}
 		return matriceInverse;
 	}
-	
-	public static float[][] caclulTransposeeComatrice(float[][] matrice){
-		float[][] comatrice = new float [matrice.length][matrice.length];
+
+	public static float[][] caclulTransposeeComatrice(float[][] matrice) {
+		float[][] comatrice = new float[matrice.length][matrice.length];
 		if (matrice.length == 2) {
-			comatrice [0][0] = matrice [1][1];
-			comatrice [1][1] = matrice [0][0];
-			comatrice [0][1] = - matrice [0][1];
-			comatrice [1][0] = - matrice [1][0];
+			comatrice[0][0] = matrice[1][1];
+			comatrice[1][1] = matrice[0][0];
+			comatrice[0][1] = -matrice[0][1];
+			comatrice[1][0] = -matrice[1][0];
 			return comatrice;
-		}else {
-			for (int i = 0; i < matrice.length ; i++) {
-				for (int y = 0; y < matrice.length ; y++ ) {
-					comatrice [i][y] = (float) (Math.pow(-1, i+y)*calculDeterminantAutomatique(copieSansLigneColonne(i, y, matrice)));
+		} else {
+			for (int i = 0; i < matrice.length; i++) {
+				for (int y = 0; y < matrice.length; y++) {
+					comatrice[i][y] = (float) (Math.pow(-1, i + y)
+							* calculDeterminantAutomatique(copieSansLigneColonne(i, y, matrice)));
 				}
 			}
-			//Transposé
-			float[][] transposeMatrice = new float [matrice.length][matrice.length];
-			for (int i = 0; i < matrice.length ; i++) {
-				for (int y = 0; y < matrice.length ; y++) {
-					transposeMatrice [i][y] = comatrice [y][i];
+			// Transposé
+			float[][] transposeMatrice = new float[matrice.length][matrice.length];
+			for (int i = 0; i < matrice.length; i++) {
+				for (int y = 0; y < matrice.length; y++) {
+					transposeMatrice[i][y] = comatrice[y][i];
 				}
 			}
 			return transposeMatrice;
 		}
 	}
-	
+
 	public static String calculCramer(float[][] matrice, float[] b) {
 		float determinant = calculDeterminantAutomatique(matrice);
 		String solution = "";
-		if(determinant != 0) {
+		if (determinant != 0) {
 			solution += "La solution unique est : {(";
-			for (int i = 0; i < matrice.length ; i++) {
-				solution += calculDeterminantAutomatique(transformeMatricePourCramer(matrice, b, i))/determinant;
-				if (i != matrice.length-1)
+			for (int i = 0; i < matrice.length; i++) {
+				solution += calculDeterminantAutomatique(transformeMatricePourCramer(matrice, b, i)) / determinant;
+				if (i != matrice.length - 1)
 					solution += ", ";
 			}
 			solution += ")}";
-		}else {
+		} else {
 			solution = "La matrice n'est pas inversible donc le système n'est pas de Cramer et donc n'admet aucune solution.";
 		}
 		return solution;
 	}
-	
-	public static float[][] transformeMatricePourCramer(float[][] matrice, float[] b, int indice){
-		float[][] matriceTransformer  = new float[matrice.length][matrice.length];
+
+	public static float[][] transformeMatricePourCramer(float[][] matrice, float[] b, int indice) {
+		float[][] matriceTransformer = new float[matrice.length][matrice.length];
 		for (int i = 0; i < matrice.length; i++) {
 			for (int j = 0; j < matrice.length; j++) {
 				matriceTransformer[i][j] = matrice[i][j];
 			}
 		}
-		for(int i = 0; i < matrice.length; i++) {
+		for (int i = 0; i < matrice.length; i++) {
 			matriceTransformer[i][indice] = b[i];
 		}
 		return matriceTransformer;
 	}
-	
-	
+
+	public static float calculDeterminantVonDerMond() {
+		int exposant = 0;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Quel est la valeur de l'exposant ?");
+		exposant = sc.nextInt();
+		float valeur[] = new float[exposant + 1];
+		for (int i = 0; i < exposant + 1; i++) {
+			System.out.println("Veuillez rentrer la valeur numéro " + (i+1) + ": ");
+			int uneValeur = sc.nextInt();
+			valeur[i] = uneValeur;
+		}
+		float res = 1;
+		for (int i = exposant; i > 0; i--) {
+			for (int y = i - 1; y >= 0; y--) {
+				res *= valeur[i] - valeur[y];
+			}
+		}
+		return res;
+	}
 }

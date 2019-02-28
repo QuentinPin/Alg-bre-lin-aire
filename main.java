@@ -1,5 +1,3 @@
-package algebreLineaire;
-
 import java.util.Scanner;
 
 public class main {
